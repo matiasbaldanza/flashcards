@@ -1,11 +1,17 @@
+import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import 'dotenv/config';
+import cors from 'cors';
+
 import DeckModel from './models/Deck';
 
 const DB_URI = process.env.MONGO_URI!.replace('<password>', process.env.MONGO_PASSWORD!) || '';
 const PORT = 5174;
 const app = express();
+
+app.use(cors({
+  origin: "http://127.0.0.1:5173",
+}));
 app.use(express.json());
 
 console.log('DB_URI:', DB_URI);
