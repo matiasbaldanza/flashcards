@@ -17,7 +17,20 @@ function App() {
         className='flex flex-col gap-4 items-start my-4 py-4'
         onSubmit={(e: React.FormEvent) => {
           e.preventDefault();
-          console.log(deckData);
+          fetch('http://localhost:5174/decks/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(deckData),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         }}
       >
         <div
