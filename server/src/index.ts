@@ -20,8 +20,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Root');
 });
 
-app.get('/decks', (req: Request, res: Response) => {
-  res.send('Decks');
+app.get('/decks', async (req: Request, res: Response) => {
+  const allDecks = await DeckModel.find();
+  res.json(allDecks);
 });
 
 app.post('/decks', async (req: Request, res: Response) => {
