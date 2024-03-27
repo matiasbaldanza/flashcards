@@ -1,11 +1,31 @@
 import './App.css'
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+const EMPTY_DECK = {
+  title: '',
+  description: '',
+};
 
 function App() {
-  const [deckData, setDeckData] = useState({
-    title: '',
-    description: '',
-  });
+  const [deckData, setDeckData] = useState(EMPTY_DECK);
+
+  async function handleCreateDeck(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      const res = await fetch('http://localhost:5174/decks/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(deckData),
+      });
+      const data = await res.json();
+      console.log(data);
+      setDeckData(EMPTY_DECK);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div>
@@ -15,23 +35,7 @@ function App() {
 
       <form
         className='flex flex-col gap-4 items-start my-4 py-4'
-        onSubmit={(e: React.FormEvent) => {
-          e.preventDefault();
-          fetch('http://localhost:5174/decks/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(deckData),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-        }}
+        onSubmit={handleCreateDeck}
       >
         <div
           className='flex flex-col gap-1 items-start'
