@@ -1,10 +1,10 @@
-
 export type DeckType = {
   _id: string,
   title: string,
   description: string,
   actions?: {
     delete: (_id: string) => void,
+    click: (_id: string) => void,
   },
 };
 
@@ -17,7 +17,8 @@ export default function DeckCard({
   return (
     <div
       key={_id}
-      className='relative border border-gray-400 rounded-md p-4 aspect-video group'
+      className='relative border border-gray-400 rounded-md p-4 aspect-video group hover:cursor-pointer transition-transform duration-300 hover:transform hover:scale-105 hover:shadow-md hover:border-blue-500 hover:border-spacing-4 hover:border-2'
+      onClick={() => actions?.click(_id)}
     >
       <h2 className='text-xl font-bold'>{title}</h2>
       <p>{description}</p>

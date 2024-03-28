@@ -1,5 +1,7 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 import DeckCard, { DeckType } from './components/DeckCard';
 
@@ -12,6 +14,7 @@ const EMPTY_DECK: DeckType = {
 function App() {
   const [deckData, setDeckData] = useState<DeckType>(EMPTY_DECK);
   const [decks, setDecks] = useState<DeckType[]>([]);
+  const navigate = useNavigate();
 
   async function handleCreateDeck(e: React.FormEvent) {
     e.preventDefault();
@@ -40,6 +43,10 @@ function App() {
     setDecks(decks.filter(deck => deck._id !== deckId));
   }
 
+  function handleClickDeck(deckId: string) {
+    navigate(`/decks/${deckId}`);
+  }
+
   useEffect(() => {
     async function fetchDecks() {
       const response = await fetch('http://localhost:5174/decks/');
@@ -65,7 +72,10 @@ function App() {
               <DeckCard
                 key={deck._id}
                 {...deck}
-                actions={{ delete: handleDeleteDeck }}
+                actions={{
+                  delete: handleDeleteDeck,
+                  click: handleClickDeck
+                }}
               />
             ))
           }
