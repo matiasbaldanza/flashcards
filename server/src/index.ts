@@ -34,6 +34,29 @@ app.post('/decks', async (req: Request, res: Response) => {
   res.json(createdDeck);
 });
 
+app.delete('/decks/:id', async (req: Request, res: Response) => {
+  try {
+    const deckId = req.params.id;
+    const deletedDeck = await DeckModel.findByIdAndDelete(deckId);
+
+    if (!deletedDeck) {
+      return res.status(404).json({
+        message: 'Deck not found',
+      });
+    }
+
+    res.status(200).json({
+      message: 'Deck deleted',
+      data: deletedDeck
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Error deleting deck',
+      error: err,
+    });
+  }
+});
+
 const db = mongoose
   .connect(
     DB_URI
