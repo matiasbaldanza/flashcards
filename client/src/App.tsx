@@ -1,45 +1,35 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  TDeck,
+  getDecks,
+  deleteDeckById,
+  createDeck
+} from './api/decks';
 
+import DeckCard from './components/DeckCard';
 
-import DeckCard, { DeckType } from './components/DeckCard';
-
-const EMPTY_DECK: DeckType = {
+const EMPTY_DECK: TDeck = {
   _id: '',
   title: '',
   description: '',
 };
 
 function App() {
-  const [deckData, setDeckData] = useState<DeckType>(EMPTY_DECK);
-  const [decks, setDecks] = useState<DeckType[]>([]);
+  const [deckData, setDeckData] = useState<TDeck>(EMPTY_DECK);
+  const [decks, setDecks] = useState<TDeck[]>([]);
   const navigate = useNavigate();
 
   async function handleCreateDeck(e: React.FormEvent) {
     e.preventDefault();
-    try {
-      const res = await fetch('http://localhost:5174/decks/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(deckData),
-      });
-      setDeckData(EMPTY_DECK);
-
-      const newDeckData = await res.json();
-      setDecks([...decks, newDeckData]);   // Optimistic update
-    } catch (err) {
-      console.error(err);
-    }
+    const newDeckData = await createDeck(deckData);
+    setDecks([...decks, newDeckData]);   // Optimistic update
+    setDeckData(EMPTY_DECK);
   }
 
   async function handleDeleteDeck(deckId: string) {
-    await fetch(`http://localhost:5174/decks/${deckId}`, {
-      method: 'DELETE',
-    });
-    // Optimistic update
+    await deleteDeckById(deckId);
     setDecks(decks.filter(deck => deck._id !== deckId));
   }
 
@@ -48,27 +38,26 @@ function App() {
   }
 
   useEffect(() => {
-    async function fetchDecks() {
-      const response = await fetch('http://localhost:5174/decks/');
-      const decks = await response.json();
-      setDecks(decks);
+    async function getAndSetDecks() {
+      const allDecks = await getDecks();
+      setDecks(allDecks);
     }
-    fetchDecks();
+    getAndSetDecks();
   }, []);
 
   return (
     <div className='container mx-auto w-[80%] px-4'>
       <header>
-        <h1 className='text-2xl font-bold text-black text-left'>
+        <h1 className='text-2xl font-bold text-left text-black'>
           Flashcards App
         </h1>
       </header>
       <main>
         <div
-          className='grid grid-cols-3 gap-2 items-start mx-auto my-4'
+          className='grid items-start grid-cols-3 gap-2 mx-auto my-4'
         >
           {
-            decks.map((deck: DeckType) => (
+            decks.map((deck: TDeck) => (
               <DeckCard
                 key={deck._id}
                 {...deck}
@@ -82,20 +71,20 @@ function App() {
         </div>
         <div>
           <form
-            className='flex flex-col gap-4 items-start my-4 py-4'
+            className='flex flex-col items-start gap-4 py-4 my-4'
             onSubmit={handleCreateDeck}
           >
             <div
-              className='flex flex-col gap-1 items-start'
+              className='flex flex-col items-start gap-1'
             >
               <label
-                className='mr-2 font-medium block'
+                className='block mr-2 font-medium'
                 htmlFor="deck-title"
               >
                 Deck Title
               </label>
               <input
-                className='border border-gray-400 px-4 py-2 rounded-md'
+                className='px-4 py-2 border border-gray-400 rounded-md'
                 type="text"
                 id="deck-title"
                 name="deck-title"
@@ -107,16 +96,16 @@ function App() {
               />
             </div>
             <div
-              className='flex flex-col gap-1 items-start'
+              className='flex flex-col items-start gap-1'
             >
               <label
-                className='mr-2 font-medium block'
+                className='block mr-2 font-medium'
                 htmlFor="deck-title"
               >
                 Description
               </label>
               <input
-                className='border border-gray-400 px-4 py-2 rounded-md'
+                className='px-4 py-2 border border-gray-400 rounded-md'
                 type="text"
                 id="deck-title"
                 name="deck-title"
@@ -128,7 +117,7 @@ function App() {
               />
             </div>
             <button
-              className='bg-blue-500 text-white px-4 py-2 rounded-md mt-4'
+              className='px-4 py-2 mt-4 text-white bg-blue-500 rounded-md'
             >Create Deck</button>
           </form>
         </div>
