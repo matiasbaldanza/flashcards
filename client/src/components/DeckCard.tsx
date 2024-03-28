@@ -16,5 +16,8 @@ export default function DeckCard({
   >
     <h2 className='text-xl font-bold'>{title}</h2>
     <p>{description}</p>
+    <p
+      className="text-xs text-gray-500 mt-2"
+    >{_id}</p>
   </div>)
 }
