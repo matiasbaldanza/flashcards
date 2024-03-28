@@ -23,11 +23,21 @@ function App() {
         },
         body: JSON.stringify(deckData),
       });
-      console.log('Posted:', res);
       setDeckData(EMPTY_DECK);
+
+      const newDeckData = await res.json();
+      setDecks([...decks, newDeckData]);   // Optimistic update
     } catch (err) {
       console.error(err);
     }
+  }
+
+  async function handleDeleteDeck(deckId: string) {
+    await fetch(`http://localhost:5174/decks/${deckId}`, {
+      method: 'DELETE',
+    });
+    // Optimistic update
+    setDecks(decks.filter(deck => deck._id !== deckId));
   }
 
   useEffect(() => {
@@ -51,7 +61,13 @@ function App() {
           className='grid grid-cols-3 gap-2 items-start mx-auto my-4'
         >
           {
-            decks.map((deck: DeckType) => <DeckCard {...deck} key={deck._id} />)
+            decks.map((deck: DeckType) => (
+              <DeckCard
+                key={deck._id}
+                {...deck}
+                actions={{ delete: handleDeleteDeck }}
+              />
+            ))
           }
         </div>
         <div>
