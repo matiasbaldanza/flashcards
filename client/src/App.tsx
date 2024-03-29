@@ -14,6 +14,7 @@ const EMPTY_DECK: TDeck = {
   _id: '',
   title: '',
   description: '',
+  cards: []
 };
 
 function App() {
@@ -46,45 +47,29 @@ function App() {
   }, []);
 
   return (
-    <div className='container mx-auto w-[80%] px-4'>
+    <div className='container mx-auto lg:w-[80%] lg:px-4 flex flex-col gap-2'>
       <header>
-        <h1 className='text-2xl font-bold text-left text-black'>
+        <h1 className='text-xl font-bold text-left text-black lg:text-2xl'>
           Flashcards App
         </h1>
       </header>
       <main>
-        <div
-          className='grid items-start grid-cols-3 gap-2 mx-auto my-4'
-        >
-          {
-            decks.map((deck: TDeck) => (
-              <DeckCard
-                key={deck._id}
-                {...deck}
-                actions={{
-                  delete: handleDeleteDeck,
-                  click: handleClickDeck
-                }}
-              />
-            ))
-          }
-        </div>
-        <div>
+        <section className='p-2 my-2 -mx-2 bg-gray-200 rounded-lg'>
           <form
-            className='flex flex-col items-start gap-4 py-4 my-4'
+            className='grid w-full grid-cols-1 gap-2 lg:grid-cols-3'
             onSubmit={handleCreateDeck}
           >
             <div
               className='flex flex-col items-start gap-1'
             >
               <label
-                className='block mr-2 font-medium'
+                className='block ml-2 text-sm text-gray-800'
                 htmlFor="deck-title"
               >
                 Deck Title
               </label>
               <input
-                className='px-4 py-2 border border-gray-400 rounded-md'
+                className='w-full h-10 px-4 py-2 border border-gray-400 rounded-md'
                 type="text"
                 id="deck-title"
                 name="deck-title"
@@ -99,13 +84,13 @@ function App() {
               className='flex flex-col items-start gap-1'
             >
               <label
-                className='block mr-2 font-medium'
+                className='block ml-2 text-sm text-gray-800'
                 htmlFor="deck-title"
               >
                 Description
               </label>
               <input
-                className='px-4 py-2 border border-gray-400 rounded-md'
+                className='w-full h-10 px-4 py-2 border border-gray-400 rounded-md'
                 type="text"
                 id="deck-title"
                 name="deck-title"
@@ -116,11 +101,29 @@ function App() {
                 }}
               />
             </div>
-            <button
-              className='px-4 py-2 mt-4 text-white bg-blue-500 rounded-md'
-            >Create Deck</button>
+            <div className='flex items-end w-full h-full' >
+              <button
+                className='w-full h-10 px-4 py-2 mt-4 text-white bg-blue-500 rounded-md'
+              >Create Deck</button>
+            </div>
           </form>
-        </div>
+        </section>
+        <section
+          className='grid items-start gap-2 mx-auto my-2 lg:grid-cols-3'
+        >
+          {
+            decks.map((deck: TDeck) => (
+              <DeckCard
+                key={deck._id}
+                {...deck}
+                actions={{
+                  delete: handleDeleteDeck,
+                  open: handleClickDeck
+                }}
+              />
+            ))
+          }
+        </section>
       </main>
     </div>
   )
