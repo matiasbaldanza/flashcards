@@ -1,4 +1,4 @@
-import ActionIcon, { TActionIcon } from "./ActionIcon";
+import ActionIcon, { TActionIcon } from "@/components/abstract/ActionIcon";
 
 export default function ActionButton({
   icon,

@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  TDeck,
-  getDecks,
-  deleteDeckById,
-} from './api/decks';
+import { TDeck, getDecks, deleteDeckById } from '@/api/decks';
 
-import CreateDeckForm from './components/CreateDeckForm';
-
-import DeckCard from './components/DeckCard';
+import CreateDeckForm from '@/components/business/CreateDeckForm';
+import DeckCard from '@/components/business/DeckCard';
 
 function App() {
   const [decks, setDecks] = useState<TDeck[]>([]);

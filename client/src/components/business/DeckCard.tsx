@@ -1,5 +1,5 @@
-import { TDeck } from '../api/decks';
-import ActionButton from './ActionButton';
+import { TDeck } from '@/api/decks';
+import ActionButton from '@/components/abstract/ActionButton';
 
 export default function DeckCard({
   _id,
