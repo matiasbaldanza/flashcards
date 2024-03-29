@@ -1,5 +1,4 @@
 import { TDeck } from '../api/decks';
-import ActionIcon from './ActionIcon';
 import ActionButton from './ActionButton';
 
 export default function DeckCard({
