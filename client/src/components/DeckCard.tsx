@@ -1,5 +1,6 @@
 import { TDeck } from '../api/decks';
 import ActionIcon from './ActionIcon';
+import ActionButton from './ActionButton';
 
 export default function DeckCard({
   _id,
@@ -24,25 +25,14 @@ export default function DeckCard({
       <div
         className='absolute flex flex-col gap-1 top-1 right-1'
       >
-        <button
-          className='px-2 py-1 text-white transition-opacity duration-300 bg-red-500 rounded-md opacity-0 aspect-square group-hover:opacity-90 hover:cursor-pointer'
-          onClick={(e) => {
-            e.stopPropagation();
-            actions?.delete(_id)
-          }}
-        >
-          <ActionIcon icon="delete" />
-        </button>
-        <button
-          className='px-2 py-1 text-white transition-opacity duration-300 bg-blue-500 rounded-md opacity-0 aspect-square group-hover:opacity-90 hover:cursor-pointer'
-          onClick={(e) => {
-            e.stopPropagation();
-            actions?.open(_id)
-          }}
-        >
-          <ActionIcon icon="open" />
-        </button>
-
+        <ActionButton
+          icon="delete"
+          action={() => actions?.delete(_id)}
+        />
+        <ActionButton
+          icon="open"
+          action={() => actions?.open(_id)}
+        />
       </div>
     </div>
   )
