@@ -1,4 +1,5 @@
 import { TDeck } from '../api/decks';
+import ActionIcon from './ActionIcon';
 
 export default function DeckCard({
   _id,
@@ -9,8 +10,7 @@ export default function DeckCard({
   return (
     <div
       key={_id}
-      className='relative p-4 transition-transform duration-300 border border-gray-400 rounded-md aspect-video group hover:cursor-pointer hover:transform hover:scale-105 hover:shadow-md hover:border-blue-500 hover:border-spacing-4 hover:border-2'
-      onClick={() => actions?.click(_id)}
+      className='relative p-4 transition-transform duration-300 border border-gray-400 rounded-md aspect-video group hover:transform hover:scale-105 hover:shadow-md hover:border-blue-500 hover:border-spacing-4 hover:border-2'
     >
       <h2 className='text-xl font-bold'>{title}</h2>
       <p>{description}</p>
@@ -21,17 +21,29 @@ export default function DeckCard({
       </p>
 
       {/* Actions */}
-      <button
-        className='absolute px-2 py-1 text-white transition-opacity duration-300 bg-red-500 rounded-md opacity-0 top-1 right-1 aspect-square group-hover:opacity-90'
-        onClick={(e) => {
-          e.stopPropagation();
-          actions?.delete(_id)
-        }}
+      <div
+        className='absolute flex flex-col gap-1 top-1 right-1'
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash-fill" viewBox="0 0 16 16">
-          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-        </svg>
-      </button>
+        <button
+          className='px-2 py-1 text-white transition-opacity duration-300 bg-red-500 rounded-md opacity-0 aspect-square group-hover:opacity-90 hover:cursor-pointer'
+          onClick={(e) => {
+            e.stopPropagation();
+            actions?.delete(_id)
+          }}
+        >
+          <ActionIcon icon="delete" />
+        </button>
+        <button
+          className='px-2 py-1 text-white transition-opacity duration-300 bg-blue-500 rounded-md opacity-0 aspect-square group-hover:opacity-90 hover:cursor-pointer'
+          onClick={(e) => {
+            e.stopPropagation();
+            actions?.open(_id)
+          }}
+        >
+          <ActionIcon icon="open" />
+        </button>
+
+      </div>
     </div>
   )
 }
