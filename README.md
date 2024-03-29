@@ -18,4 +18,5 @@ Client:
 
 Server:
 - pnpm install
-- 
+- Set up MongoDB (local or MongoDB Atlas) and obtain a connection URI and password
+- Duplicate /server/example.env and rename as .env, and add the MongoDB connection URI and password
