@@ -1,4 +1,3 @@
-import './App.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,7 +19,7 @@ function App() {
     setDecks(decks.filter(deck => deck._id !== deckId));
   }
 
-  function handleClickDeck(deckId: string) {
+  function handleOpenDeck(deckId: string) {
     navigate(`/decks/${deckId}`);
   }
 
@@ -33,8 +32,8 @@ function App() {
   }, []);
 
   return (
-    <div className='container mx-auto lg:w-[80%] lg:px-4 flex flex-col gap-2'>
-      <header>
+    <div className='container w-[90%] mx-auto lg:w-[80%] lg:px-4 flex flex-col gap-2'>
+      <header className='mt-4 lg:mt-10'>
         <h1 className='text-xl font-bold text-left text-black lg:text-2xl'>
           Flashcards App
         </h1>
@@ -51,7 +50,7 @@ function App() {
                 {...deck}
                 actions={{
                   delete: handleDeleteDeck,
-                  open: handleClickDeck
+                  open: handleOpenDeck
                 }}
               />
             ))
