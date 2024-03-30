@@ -4,13 +4,22 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
 const DeckSchema = new Schema({
-  // _id: ObjectId,
-  title: String,
+  title: {
+    type: String,
+    required: true,
+  },
   description: String,
-  slug: String,
+  slug: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   cards: [
     {
-      front: String,
+      front: {
+        type: String,
+        required: true,
+      },
       back: String
     }]
 });
