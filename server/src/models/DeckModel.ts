@@ -7,7 +7,12 @@ const DeckSchema = new Schema({
   // _id: ObjectId,
   title: String,
   description: String,
-  // cards: [{ type: ObjectId, ref: 'Card' }]
+  slug: String,
+  cards: [
+    {
+      front: String,
+      back: String
+    }]
 });
 
 const DeckModel = mongoose.model('Deck', DeckSchema);
