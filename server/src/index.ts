@@ -4,8 +4,12 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import { getDecksController } from './controllers/getDecksController';
+import { getDeckByIdController } from './controllers/getDeckByIdController';
 import { createDeckController } from './controllers/createDeckController';
 import { deleteDeckByIdController } from './controllers/deleteDeckByIdController';
+
+import { createCardInDeckController } from './controllers/createCardInDeckController';
+
 
 const DB_URI = process.env.MONGO_URI!.replace('<password>', process.env.MONGO_PASSWORD!) || '';
 const PORT = 5174;
@@ -23,8 +27,11 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/decks', getDecksController);
+app.get('/decks/:id', getDeckByIdController);
 app.post('/decks', createDeckController);
 app.delete('/decks/:id', deleteDeckByIdController);
+
+app.post('/decks/:deckId/cards', createCardInDeckController);
 
 const db = mongoose
   .connect(
