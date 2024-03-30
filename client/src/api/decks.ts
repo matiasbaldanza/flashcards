@@ -1,13 +1,18 @@
 import { API_URL } from './config';
+import { TCard } from './cards';
+
+export type TActions = {
+  delete: (_id: string) => void,
+  open: (_id: string) => void,
+};
 
 export type TDeck = {
   _id: string,
   title: string,
   description: string,
-  actions?: {
-    delete: (_id: string) => void,
-    click: (_id: string) => void,
-  },
+  slug: string,
+  cards: TCard[],
+  actions?: TActions,
 };
 
 export async function getDecks(): Promise<TDeck[]> {
@@ -21,6 +26,18 @@ export async function deleteDeckById(
   await fetch(`${API_URL}/decks/${deckId}`, {
     method: 'DELETE',
   });
+}
+
+export async function getDeckById(
+  deckId: string
+): Promise<TDeck> {
+  try {
+    const response = await fetch(`${API_URL}/decks/${deckId}`);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
 export async function createDeck(
