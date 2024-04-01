@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TDeck, getDecks, deleteDeckById } from '@/api/decks';
+import { TDeck } from '@shared/types/types';
+import { getDecks, deleteDeckById } from '@/api/decks';
 
 import CreateDeckForm from '@/components/business/CreateDeckForm';
 import DeckCard from '@/components/business/DeckCard';

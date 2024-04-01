@@ -1,10 +1,11 @@
 import { useState } from 'react';
-
-import { TDeck, createDeck } from '../../api/decks';
+import { TDeck } from '@shared/types/types';
+import { createDeck } from '../../api/decks';
 
 const EMPTY_DECK: TDeck = {
   _id: '',
   title: '',
+  slug: '',
   description: '',
   cards: []
 };

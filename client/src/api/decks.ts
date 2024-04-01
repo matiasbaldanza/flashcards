@@ -1,9 +1,10 @@
 import { API_URL } from './config';
-import { TDeck } from '@shared/types/types';
+import { TDeck, TApiResponse } from '@shared/types/types';
 
 export async function getDecks(): Promise<TDeck[]> {
   const response = await fetch(`${API_URL}/decks/`);
-  return response.json();
+  const apiResponse: TApiResponse<TDeck[]> = await response.json();
+  return apiResponse.data;
 }
 
 export async function deleteDeckById(
@@ -19,7 +20,8 @@ export async function getDeckById(
 ): Promise<TDeck> {
   try {
     const response = await fetch(`${API_URL}/decks/${deckId}`);
-    return response.json();
+    const apiResponse: TApiResponse<TDeck> = await response.json();
+    return apiResponse.data;
   } catch (error) {
     console.log(error);
     throw error;
@@ -37,7 +39,18 @@ export async function createDeck(
       },
       body: JSON.stringify(deckData),
     });
-    return response.json();
+
+    if (!response.ok) {
+      throw new Error('Failed to create deck');
+    }
+
+    const apiResponse: TApiResponse<TDeck> = await response.json();
+
+    if (!apiResponse.success) {
+      throw new Error(apiResponse.message);
+    }
+
+    return apiResponse.data;
   } catch (error) {
     console.error(error);
     throw error;
