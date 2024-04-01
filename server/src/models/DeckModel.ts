@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+import { TDeck } from '@shared/types/deckTypes';
 
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.Types.ObjectId;
+// const ObjectId = mongoose.Types.ObjectId;
 
-const DeckSchema = new Schema({
+const DeckSchema = new Schema<TDeck>({
   title: {
     type: String,
     required: true,
@@ -24,6 +25,6 @@ const DeckSchema = new Schema({
     }]
 });
 
-const DeckModel = mongoose.model('Deck', DeckSchema);
+const DeckModel = mongoose.model<TDeck>('Deck', DeckSchema);
 
 export default DeckModel;

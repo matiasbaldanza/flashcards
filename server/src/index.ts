@@ -22,7 +22,7 @@ app.use(express.json());
 
 console.log('DB_URI:', DB_URI);
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
   res.send('Root');
 });
 
@@ -33,7 +33,8 @@ app.delete('/decks/:id', deleteDeckByIdController);
 
 app.post('/decks/:deckId/cards', createCardInDeckController);
 
-const db = mongoose
+
+mongoose
   .connect(
     DB_URI
   ).then(() => {

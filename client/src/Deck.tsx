@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { TDeck, getDeckById } from '@/api/decks';
+import { TDeck } from '@shared/types/deckTypes';
+import { getDeckById } from '@/api/decks';
 
 export default function Deck() {
   const [deckData, setDeckData] = useState<TDeck | undefined>();

@@ -1,19 +1,5 @@
 import { API_URL } from './config';
-import { TCard } from './cards';
-
-export type TActions = {
-  delete: (_id: string) => void,
-  open: (_id: string) => void,
-};
-
-export type TDeck = {
-  _id: string,
-  title: string,
-  description: string,
-  slug: string,
-  cards: TCard[],
-  actions?: TActions,
-};
+import { TDeck } from '@shared/types/deckTypes';
 
 export async function getDecks(): Promise<TDeck[]> {
   const response = await fetch(`${API_URL}/decks/`);

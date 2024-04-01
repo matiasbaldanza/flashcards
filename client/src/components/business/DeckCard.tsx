@@ -1,12 +1,16 @@
-import { TDeck } from '@/api/decks';
+import { TDeck, TActions } from '@shared/types/deckTypes';
 import ActionButton from '@/components/abstract/ActionButton';
+
+export type TDeckCardProps = TDeck & {
+  actions?: TActions,
+};
 
 export default function DeckCard({
   _id,
   title,
   description,
   actions
-}: TDeck) {
+}: TDeckCardProps) {
   return (
     <div
       key={_id}
