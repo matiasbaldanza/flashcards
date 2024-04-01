@@ -1,5 +1,5 @@
 import { API_URL } from './config';
-import { TDeck } from '@shared/types/deckTypes';
+import { TDeck } from '@shared/types/types';
 
 export async function getDecks(): Promise<TDeck[]> {
   const response = await fetch(`${API_URL}/decks/`);

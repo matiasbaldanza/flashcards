@@ -1,4 +1,4 @@
-import { TDeck, TActions } from '@shared/types/deckTypes';
+import { TDeck, TActions } from '@shared/types/types';
 import ActionButton from '@/components/abstract/ActionButton';
 
 export type TDeckCardProps = TDeck & {

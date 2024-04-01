@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { TDeck } from '@shared/types/deckTypes';
+import { TDeck } from '@shared/types/types';
 import { getDeckById } from '@/api/decks';
 
 export default function Deck() {

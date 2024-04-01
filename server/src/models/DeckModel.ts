@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TDeck } from '@shared/types/deckTypes';
+import { TDeck } from '@shared/types/types';
 
 const Schema = mongoose.Schema;
 // const ObjectId = mongoose.Types.ObjectId;
