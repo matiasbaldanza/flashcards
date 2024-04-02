@@ -3,15 +3,17 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
+import { createDeckController } from './controllers/createDeckController';
 import { getDecksController } from './controllers/getDecksController';
 import { getDeckByIdController } from './controllers/getDeckByIdController';
-import { createDeckController } from './controllers/createDeckController';
+// import { updateDeckController } from './controllers/updateDeckController';
 import { deleteDeckByIdController } from './controllers/deleteDeckByIdController';
 
-import { createCardInDeckController } from './controllers/createCardInDeckController';
+// import { createCardInDeckController } from './controllers/createCardInDeckController';
 
 
-const DB_URI = process.env.MONGO_URI!.replace('<password>', process.env.MONGO_PASSWORD!) || '';
+const DB_URI = process.env.MONGO_URI!
+  .replace('<password>', process.env.MONGO_PASSWORD!) || '';
 const PORT = 5174;
 const app = express();
 
@@ -26,15 +28,19 @@ app.get('/', (_req: Request, res: Response) => {
   res.send('Root');
 });
 
+app.post('/decks', createDeckController);
 app.get('/decks', getDecksController);
 app.get('/decks/:id', getDeckByIdController);
-app.post('/decks', createDeckController);
+// TODO: app.put('/decks/:id', updateDeckController);
 app.delete('/decks/:id', deleteDeckByIdController);
 
-app.post('/decks/:deckId/cards', createCardInDeckController);
+// TODO: app.post('/decks/:deckId/cards', createCardInDeckController);
+// TODO: app.get('/decks/:deckId/cards', getCardsInDeckController);
+// TODO: app.get('/decks/:deckId/cards/:cardId', getCardInDeckByIdController);
+// TODO: app.put('/decks/:deckId/cards/:cardId', updateCardInDeckController);
+// TODO: app.delete('/decks/:deckId/cards/:cardId', deleteCardInDeckController);
 
-
-mongoose
+export const db = mongoose
   .connect(
     DB_URI
   ).then(() => {
