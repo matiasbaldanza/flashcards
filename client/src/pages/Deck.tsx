@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { TDeck } from '@shared/types/types';
 import { getDeckById } from '@/api/decks';
 
+import Layout from '@/pages/Layout';
+
 export default function Deck() {
   const [deckData, setDeckData] = useState<TDeck | undefined>();
   const { deckId } = useParams();
@@ -18,15 +20,10 @@ export default function Deck() {
   }, [deckId]);
 
   return (
-    <div className='container mx-auto w-[80%] px-4'>
-      <header>
-        <h1 className='text-2xl font-bold text-left text-black'>
-          {deckData?.title}
-        </h1>
-      </header>
-      <main>
-
-      </main>
-    </div>
+    <Layout>
+      <h2 className='text-2xl font-bold text-left text-black'>
+        {deckData?.title}
+      </h2>
+    </Layout>
   )
 }

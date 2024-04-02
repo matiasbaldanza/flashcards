@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TDeck } from '@shared/types/types';
 import { getDecks, deleteDeckById } from '@/api/decks';
 
+import Layout from '@/pages/Layout';
 import CreateDeckForm from '@/components/business/CreateDeckForm';
 import DeckCard from '@/components/business/DeckCard';
 
@@ -28,32 +29,25 @@ function App() {
   }, []);
 
   return (
-    <div className='container w-[90%] mx-auto lg:w-[80%] lg:px-4 flex flex-col gap-2'>
-      <header className='mt-4 lg:mt-10'>
-        <h1 className='text-xl font-bold text-left text-black lg:text-2xl'>
-          Flashcards App
-        </h1>
-      </header>
-      <main>
-        <CreateDeckForm decks={decks} setDecks={setDecks} />
-        <section
-          className='grid items-start gap-2 mx-auto my-2 lg:grid-cols-3'
-        >
-          {
-            decks.map((deck: TDeck) => (
-              <DeckCard
-                key={deck._id}
-                {...deck}
-                actions={{
-                  delete: handleDeleteDeck,
-                  open: handleOpenDeck
-                }}
-              />
-            ))
-          }
-        </section>
-      </main>
-    </div>
+    <Layout>
+      <CreateDeckForm decks={decks} setDecks={setDecks} />
+      <section
+        className='grid items-start gap-2 mx-auto my-2 lg:grid-cols-3'
+      >
+        {
+          decks.map((deck: TDeck) => (
+            <DeckCard
+              key={deck._id}
+              {...deck}
+              actions={{
+                delete: handleDeleteDeck,
+                open: handleOpenDeck
+              }}
+            />
+          ))
+        }
+      </section>
+    </Layout>
   )
 }
 

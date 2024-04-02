@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import Deck from './Deck.tsx'
+import Deck from './pages/Deck.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css'
 
