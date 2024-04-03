@@ -1,5 +1,6 @@
 import { TDeck, TActions } from '@shared/types/types';
 import ActionButton from '@/components/abstract/ActionButton';
+import Card from '@/components/abstract/Card';
 
 export type TDeckCardProps = TDeck & {
   actions?: TActions,
@@ -12,10 +13,7 @@ export default function DeckCard({
   actions
 }: TDeckCardProps) {
   return (
-    <div
-      key={_id}
-      className='relative p-4 transition-transform duration-300 border border-gray-400 rounded-md aspect-video group hover:transform hover:scale-105 hover:shadow-md hover:border-blue-500 hover:border-spacing-4 hover:border-2'
-    >
+    <Card>
       <h2 className='text-xl font-bold'>{title}</h2>
       <p>{description}</p>
       <p
@@ -37,6 +35,6 @@ export default function DeckCard({
           action={() => actions?.open(_id)}
         />
       </div>
-    </div>
+    </Card>
   )
 }
