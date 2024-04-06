@@ -14,7 +14,10 @@ import { deleteDeckByIdController } from './controllers/deleteDeckByIdController
 
 
 const DB_URI = process.env.MONGO_URI!.replace('<password>', process.env.MONGO_PASSWORD!) || '';
-const PORT = 5174;
+const PORT = process.env.NODE_ENV === 'production'
+  ? process.env.PROD_PORT
+  : process.env.DEV_PORT;
+
 const app = express();
 
 app.use(cors(corsOptions));
