@@ -12,8 +12,8 @@ import { deleteDeckByIdController } from './controllers/deleteDeckByIdController
 
 // import { createCardInDeckController } from './controllers/createCardInDeckController';
 
-
 const DB_URI = process.env.MONGO_URI!.replace('<password>', process.env.MONGO_PASSWORD!) || '';
+
 const PORT = process.env.NODE_ENV === 'production'
   ? process.env.PROD_PORT
   : process.env.DEV_PORT;

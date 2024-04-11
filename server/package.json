@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "build": "tsc src/index.ts",
-    "start": "node dist/index.js"
+    "build": "rm -rf ./dist && tsc && cp package.json ./dist/server && cp .env.production ./dist/server/.env",
+    "postbuild": "cd dist/server && npm install && cd ../..",
+    "start": "cd dist/server && node src/index.js && cd ../.."
   },
   "keywords": [],
   "author": "",
